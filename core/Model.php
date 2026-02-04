@@ -17,7 +17,10 @@ abstract class Model
             }
         }
     }
-    abstract public function rules(): array;
+
+    abstract protected function rules(): array;
+
+    abstract public function labels(): array;
 
     /**
      *  ``` return [

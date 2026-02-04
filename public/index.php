@@ -8,8 +8,10 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use app\controllers\AuthController;
 use app\controllers\SiteController;
-use app\core\Application; // It's like importing the package 
+use app\core\Application;
 use Dotenv\Dotenv;
+
+// It's like importing the package
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
@@ -18,9 +20,9 @@ $ROOT_DIR = dirname(__DIR__);
 
 $CONFIG = [
     "db" => [
-        $_ENV['DB_DSN'], // dsn
-        $_ENV['DB_USER'], //user
-        $_ENV['DB_PASS'] //pass
+        "DB_DSN" => $_ENV['DB_DSN'], // dsn
+        "DB_USER" => $_ENV['DB_USER'], //user
+        "DB_PASS" => $_ENV['DB_PASS'], //pass
     ]
 ];
 

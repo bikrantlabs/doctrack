@@ -34,7 +34,7 @@ class Field
     public function __toString()
     {
         $labelFor = $this->attribute;
-        $labelText = ucfirst($this->attribute);
+        $labelText = $this->model->labels()[$this->attribute];
         $fieldName = $this->attribute;
         $fieldId = $this->attribute;
         $fieldValue = $this->model->{$this->attribute};

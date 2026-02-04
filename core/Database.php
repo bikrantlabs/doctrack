@@ -16,9 +16,6 @@ class Database
         $dsn = $config['DB_DSN'];
         $user = $config['DB_USER'];
         $password = $config['DB_PASS'];
-        echo "Connecting to database with DSN: $dsn";
-        echo "User: $user";
-        echo "Password: $password" . PHP_EOL;
         $this->pdo = new \PDO($dsn, $user, $password);
 
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);

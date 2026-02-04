@@ -58,7 +58,7 @@ class Form
             $attrStr .= sprintf(' %s="%s"', $key, htmlspecialchars($value));
         }
         echo sprintf(
-            '<form action="%s" method="%s"%s>',
+            '<form action="%s" method="%s" %s>',
             htmlspecialchars($this->action),
             htmlspecialchars($this->method),
             $attrStr

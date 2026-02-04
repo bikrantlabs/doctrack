@@ -54,8 +54,9 @@ class Router
         if (is_array($callback)) {
             [$class, $method] = $callback;
             $controller = new $class();
-            return call_user_func([$controller, $method], $this->request);
+            return call_user_func([$controller, $method], $this->request, $this->response);
         }
+        return "Not Found";
     }
 
     public function renderView($view, $params = [])

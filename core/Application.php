@@ -10,6 +10,8 @@ class Application
     public Response $response;
     public Database $db;
 
+    public Session $session;
+
     public static Application $app;
 
     public function __construct($rootPath, array $config)
@@ -19,9 +21,9 @@ class Application
         self::$app = $this;
         $this->request = new Request();
         $this->response = new Response();
+        $this->session = new Session();
 
         $this->router = new Router($this->request, $this->response);
-
         $this->db = new Database($config['db']);
     }
 
@@ -31,7 +33,8 @@ class Application
         echo $this->router->resolve();
     }
 
-    public static function log($message){
-        echo '['.date("Y-m-d H:i:s").'] - '.$message.PHP_EOL;
+    public static function log($message)
+    {
+        echo '[' . date("Y-m-d H:i:s") . '] - ' . $message . PHP_EOL;
     }
 }

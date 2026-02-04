@@ -5,35 +5,41 @@ namespace app\controllers;
 use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
-use app\models\request\RegisterModel;
+use app\core\Response;
+use app\models\request\User;
 
 class AuthController extends Controller
 {
 
 
-    public function registerUser(Request $req)
+    public function registerUser(Request $req, Response $response)
     {
 
-        $registerModel = new RegisterModel();
+        $userModel = new User();
         if ($req->isGet()) {
-            return $this->render("register", "auth", ["model" => $registerModel]); // viewname + layoutname
+            return $this->render("register", "auth", ["model" => $userModel]); // viewname + layoutname
         }
 
 
         if ($req->isPost()) {
             $body = $req->getBody();
 
-            $registerModel->loadData($body);
+            $userModel->loadData($body);
 
-            if ($registerModel->validate()) {
+            if ($userModel->validate()) {
+                $userModel->save();
                 // Save user or perform other actions
-                return $this->render("register", "auth", ["model" => $registerModel]);
+
+                $userModel->resetPasswordField();
+                Application::$app->session->setFlash("success", "Your account has been created.");
+                $response->redirect("/");
+                return $this->render("register", "auth", ["model" => $userModel]);
             } else {
-                return $this->render("register", "auth", ["model" => $registerModel]);
+                return $this->render("register", "auth", ["model" => $userModel]);
                 // Handle validation errors
             }
-
-            return $this->render("register", "auth", ["model" => $registerModel]);
         }
+        $response->setStatusCode(405);
+        return "Method Not Allowed";
     }
 }
