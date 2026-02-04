@@ -1,0 +1,24 @@
+<?php
+
+use app\core\Application;
+
+class CLASSNAME
+{
+    public function up()
+    {
+
+       try {
+       $db = Application::$app->db;
+       $SQL = "SQL_CONTENT";
+       $db->pdo->exec($SQL);
+
+        } catch (Exception $e) {
+            Application::log(__CLASS__ . " Failed to create tables. " . $e->getMessage());
+        }
+    }
+
+    public function down()
+    {
+       throw new Exception("Not implemented");
+    }
+}

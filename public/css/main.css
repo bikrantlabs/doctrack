@@ -1,0 +1,12 @@
+@import "theme.css";
+@import "common.css";
+@import "form.css";
+/* Base Styles */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  letter-spacing: var(--tracking-normal);
+  margin: 0;
+  padding: 0;
+}

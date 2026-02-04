@@ -1,0 +1,19 @@
+{
+  "name": "bjung/doctrack",
+  "description": "Documents review and approval app",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Bikrant Jung Budhathoki"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "app\\": "./"
+    }
+  },
+  "require": {
+    "vlucas/phpdotenv": "^5.6",
+    "ext-pdo": "*"
+  }
+}

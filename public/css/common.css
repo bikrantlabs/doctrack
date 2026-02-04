@@ -1,0 +1,75 @@
+/* public/css/common.css */
+
+/* Base button styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  user-select: none;
+}
+
+/* Primary button */
+.button-primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.button-primary:active {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(1px);
+}
+
+/* Secondary button */
+.button-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-foreground);
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-md);
+}
+
+.button-secondary:active {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(1px);
+}
+
+/* Destructive button */
+.button-destructive {
+  background-color: var(--color-destructive);
+  color: var(--color-destructive-foreground);
+  border-color: var(--color-destructive);
+  box-shadow: var(--shadow-md);
+}
+
+.button-destructive:active {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(1px);
+}
+
+/* Disabled button */
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Small / Large modifiers */
+.button-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.button-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
