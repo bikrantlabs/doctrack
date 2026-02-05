@@ -10,6 +10,6 @@ class Controller
         if (empty($layout)) {
             return Application::$app->router->renderView($view, $params);
         }
-        return Application::$app->router->renderViewWithLayout($view,  $layout, $params);
+        return Application::$app->router->renderViewWithLayout($view, $layout, $params);
     }
 }

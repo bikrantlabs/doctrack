@@ -61,17 +61,33 @@ class Router
 
     public function renderView($view, $params = [])
     {
-        return $this->renderOnlyView($view, $params);
+        // This method is called when no layout is specified in Controller
+        // Now we'll wrap it with rootLayout by default
+        return $this->renderViewWithLayout($view, 'rootLayout', $params);
     }
 
     public function renderViewWithLayout(string $view, $layoutPath, $params = [])
     {
 
+        // Get the inner layout content (could be main, auth, etc. or rootLayout itself)
         $layoutContent = $this->layoutContent($layoutPath);
+
         $viewContent = $this->renderOnlyView($view, $params);
 
 
-        return str_replace('{{content}}', $viewContent, $layoutContent);
+        // Replace {{content}} in the inner layout
+        $innerWrappedContent = str_replace('{{content}}', $viewContent, $layoutContent);
+
+        // If the layout we're using is already rootLayout, we're done
+        if ($layoutPath === 'rootLayout') {
+
+            return $innerWrappedContent;
+        }
+
+
+        // Otherwise, wrap the whole thing with rootLayout
+        $rootLayoutContent = $this->layoutContent('rootLayout');
+        return str_replace('{{content}}', $innerWrappedContent, $rootLayoutContent);
     }
 
 

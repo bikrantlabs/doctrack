@@ -42,7 +42,7 @@ class Field
         $errorMsg = $this->model->getFirstError($this->attribute);
 
         $html = "<div class='form-group'>";
-        $html .= "<label for='$labelFor'>$labelText</label>";
+        $html .= "<label for='$labelFor' class='form-label'>$labelText</label>";
 
         switch ($this->type) {
             case 'textarea':
@@ -102,7 +102,7 @@ class Field
                 // default input
                 $inputType = $this->type;
                 $html .= sprintf(
-                    '<input type="%s" name="%s" id="%s" value="%s" class="form-control %s">',
+                    '<input type="%s" name="%s" id="%s" value="%s" class="form-field %s">',
                     $inputType,
                     $fieldName,
                     $fieldId,
@@ -111,7 +111,7 @@ class Field
                 );
         }
 
-        $html .= "<div class='invalid-feedback'>$errorMsg</div>";
+        $html .= "<div class='form-error'>$errorMsg</div>";
         $html .= "</div>";
 
         return $html;

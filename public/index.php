@@ -33,4 +33,6 @@ $app->router->get("/", [SiteController::class, "home"]);
 $app->router->get("/register", [AuthController::class, 'registerUser']);
 $app->router->post("/register", [AuthController::class, 'registerUser']); // registerUser method of AuthController
 
+$app->router->get("/login", [AuthController::class, 'loginUser']); // registerUser method of AuthController
+
 $app->run();

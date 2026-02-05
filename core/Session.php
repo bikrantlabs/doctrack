@@ -4,43 +4,80 @@ namespace app\core;
 
 class Session
 {
-
     protected const FLASH_KEY = "flash_messages";
 
     public function __construct()
     {
         session_start();
+
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
+
+        // Mark all messages for removal initially
         foreach ($flashMessages as $key => &$message) {
-            //  Mark them to be removed.
             $message["toRemove"] = true;
         }
+
         $_SESSION[self::FLASH_KEY] = $flashMessages;
     }
 
     public function __destruct()
     {
-        // Iterate over marked to be removed message and  remove them.
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
+
         foreach ($flashMessages as $key => &$message) {
-            //  Mark them to be removed.
-            if (isset($message["toRemove"]) && $message["toRemove"] === true) {
+            if ($message["toRemove"] === true) {
                 unset($flashMessages[$key]);
             }
         }
+
         $_SESSION[self::FLASH_KEY] = $flashMessages;
     }
 
-    public function setFlash(string $key, string $message)
+    public function setFlash(string $key, string $content, string $type = "info"): void
     {
         $_SESSION[self::FLASH_KEY][$key] = [
-            "message" => $message,
+            "content" => $content,
+            "type" => $type,
             "toRemove" => false,
+            "displayed" => false, // NEW: Track if displayed
         ];
     }
 
-    public function getFlash(string $key): string
+    public function getFlash(string $key): array|false
     {
-        return $_SESSION[self::FLASH_KEY][$key]["message"] ?? false;
+        if (!isset($_SESSION[self::FLASH_KEY][$key])) {
+            return false;
+        }
+
+        $flash = $_SESSION[self::FLASH_KEY][$key];
+
+        // If already displayed once, mark for removal immediately
+        if ($flash["displayed"] === true) {
+            unset($_SESSION[self::FLASH_KEY][$key]);
+            return false;
+        }
+
+        // Mark as displayed but don't remove yet (allow display in current request)
+        $_SESSION[self::FLASH_KEY][$key]["displayed"] = true;
+
+        return [
+            "content" => $flash["content"],
+            "type" => $flash["type"]
+        ];
+    }
+
+    public function getFlashes(): array
+    {
+        $result = [];
+        foreach ($_SESSION[self::FLASH_KEY] ?? [] as $key => $message) {
+            if ($message["displayed"] === false) {
+                $_SESSION[self::FLASH_KEY][$key]["displayed"] = true;
+                $result[$key] = [
+                    "content" => $message["content"],
+                    "type" => $message["type"]
+                ];
+            }
+        }
+        return $result;
     }
 }

@@ -10,14 +10,12 @@ use app\models\request\User;
 
 class AuthController extends Controller
 {
-
-
     public function registerUser(Request $req, Response $response)
     {
 
         $userModel = new User();
         if ($req->isGet()) {
-            return $this->render("register", "auth", ["model" => $userModel]); // viewname + layoutname
+            return $this->render("register", "", ["model" => $userModel]); // viewname + layoutname
         }
 
 
@@ -31,14 +29,28 @@ class AuthController extends Controller
                 // Save user or perform other actions
 
                 $userModel->resetPasswordField();
-                Application::$app->session->setFlash("success", "Your account has been created.");
+                Application::$app->session->setFlash("register_success", "Your account has been created.", "success");
                 $response->redirect("/");
-                return $this->render("register", "auth", ["model" => $userModel]);
+                return $this->render("register", "", ["model" => $userModel]);
             } else {
-                return $this->render("register", "auth", ["model" => $userModel]);
+                Application::$app->session->setFlash("register_failed", "Failed to register.", "error");
+                return $this->render("register", "", ["model" => $userModel]);
                 // Handle validation errors
             }
         }
+        $response->setStatusCode(405);
+        return "Method Not Allowed inRegister";
+    }
+
+    public function loginUser(Request $req, Response $response)
+    {
+
+        $userModel = new User();
+        if ($req->isGet()) {
+            return $this->render("login", "", ["model" => $userModel]); // viewname + layoutname
+        }
+
+
         $response->setStatusCode(405);
         return "Method Not Allowed";
     }
