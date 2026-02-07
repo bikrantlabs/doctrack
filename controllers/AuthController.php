@@ -86,4 +86,9 @@ class AuthController extends Controller
         return "Method Not Alloweds";
 
     }
+
+    public function profile(Request $req, Response $response)
+    {
+        return $this->render("profile");
+    }
 }

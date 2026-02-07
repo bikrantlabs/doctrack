@@ -9,6 +9,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use app\controllers\AuthController;
 use app\controllers\SiteController;
 use app\core\Application;
+use app\middlewares\AuthMiddleware;
 use app\models\User;
 use Dotenv\Dotenv;
 
@@ -16,7 +17,6 @@ use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
-define('APP_ROOT', dirname(__DIR__));
 
 $ROOT_DIR = dirname(__DIR__);
 
@@ -31,13 +31,18 @@ $CONFIG = [
 
 $app = new Application($ROOT_DIR, $CONFIG);
 
+
 $app->router->get("/", [SiteController::class, "home"]);
 
+// Authentication
 $app->router->get("/register", [AuthController::class, 'registerUser']);
-$app->router->post("/register", [AuthController::class, 'registerUser']); // registerUser method of AuthController
+$app->router->post("/register", [AuthController::class, 'registerUser']);
 
-$app->router->get("/login", [AuthController::class, 'loginUser']); // registerUser method of AuthController
-$app->router->post("/login", [AuthController::class, 'loginUser']); // registerUser method of AuthController
+$app->router->get("/login", [AuthController::class, 'loginUser']);
+$app->router->post("/login", [AuthController::class, 'loginUser']);
 
-$app->router->post("/logout", [AuthController::class, 'logout']); // registerUser method of AuthController
+$app->router->post("/logout", [AuthController::class, 'logout']);
+
+// Profile
+$app->router->get("/profile", [AuthController::class, 'profile', [new AuthMiddleware()]]);
 $app->run();

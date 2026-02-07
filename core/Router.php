@@ -56,7 +56,15 @@ class Router
 
         // if callback is array, [Authcontroller.class, 'register']. 
         if (is_array($callback)) {
+
             [$class, $method] = $callback;
+            $middlewares = $callback[2] ?? null;
+            if (!empty($middlewares)) {
+                foreach ($middlewares as $middleware) {
+                    $middleware->execute($this->request, $this->response);
+                }
+            }
+
             $controller = new $class();
             return call_user_func([$controller, $method], $this->request, $this->response);
         }

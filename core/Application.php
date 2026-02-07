@@ -17,6 +17,11 @@ class Application
 
 
     public static Application $app;
+    /**
+     * @var BaseMiddleware[]
+     */
+    public array $middlewares = [];
+
 
     public function __construct($rootPath, array $config)
 
@@ -50,6 +55,9 @@ class Application
 
     public function run(): void
     {
+        foreach ($this->middlewares as $middleware) {
+            $middleware->execute($this->request, $this->response);
+        }
         echo $this->router->resolve();
     }
 
@@ -74,5 +82,10 @@ class Application
     {
         $this->user = null;
         $this->session->remove("user_id");
+    }
+
+    public function use(BaseMiddleware $middleware): void
+    {
+        $this->middlewares[] = $middleware;
     }
 }

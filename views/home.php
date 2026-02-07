@@ -1,4 +1,4 @@
-<?php include_once(APP_ROOT . "/views/partials/navbar.php") ?>
+<?php include_once(\app\core\Application::$ROOT_DIR . "/views/partials/navbar.php") ?>
 
 
 <!-- Hero Section -->
