@@ -73,7 +73,7 @@ use app\models\request\LoginFormModel;
                 <div class="auth-footer">
                     <p class="auth-footer-text">
                         Already have an account?
-                        <a href="register" class="auth-footer-link">Register</a>
+                        <a href="/register" class="auth-footer-link">Register</a>
                     </p>
                 </div>
             </div>

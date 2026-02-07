@@ -148,6 +148,9 @@ p {
 /* ==================
    HEADER / NAVBAR
    ================== */
+.header-wrapper {
+    height: var(--header-height);
+}
 
 .header {
     position: fixed;
@@ -160,6 +163,7 @@ p {
     border-bottom: var(--border-width-thin) solid var(--color-border);
     z-index: var(--z-sticky);
 }
+
 
 .header-inner {
     height: 100%;

@@ -145,7 +145,7 @@ use app\models\User;
             <div class="auth-footer">
                 <p class="auth-footer-text">
                     Already have an account?
-                    <a href="login" class="auth-footer-link">Sign in</a>
+                    <a href="/login" class="auth-footer-link">Sign in</a>
                 </p>
             </div>
         </div>

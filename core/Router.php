@@ -33,9 +33,13 @@ class Router
 
         // Get the callback for given method and path
         $callback = $this->routes[$method][$path] ?? false;
-        if ($callback == false) {
+        if (!$callback) {
 
             $this->response->setStatusCode(404);
+            $fileExists = file_exists(Application::$ROOT_DIR . "/views/not_found.php");
+            if ($fileExists) {
+                return $this->renderView("not_found", []);
+            }
             return "Not found";
         }
 
