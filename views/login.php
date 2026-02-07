@@ -1,10 +1,10 @@
 <?php
 
 use app\core\form\Form;
-use app\models\request\User;
+use app\models\request\LoginFormModel;
 
 /**
- * @var User $model
+ * @var LoginFormModel $model
  */
 ?>
 
@@ -73,7 +73,7 @@ use app\models\request\User;
                 <div class="auth-footer">
                     <p class="auth-footer-text">
                         Already have an account?
-                        <a href="register" class="auth-footer-link">Sign in</a>
+                        <a href="register" class="auth-footer-link">Register</a>
                     </p>
                 </div>
             </div>

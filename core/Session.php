@@ -80,4 +80,20 @@ class Session
         }
         return $result;
     }
+
+    public function get(string $key)
+    {
+        return $_SESSION[$key] ?? false;
+    }
+
+    public function set(string $key, string $value): void
+    {
+        $_SESSION[$key] = $value;
+       
+    }
+
+    public function remove(string $key): void
+    {
+        unset($_SESSION[$key]);
+    }
 }

@@ -227,6 +227,14 @@ p {
     width: 100%;
 }
 
+.nav-link.active {
+    color: var(--color-text-primary);
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
 .nav-actions {
     display: flex;
     align-items: center;

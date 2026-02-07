@@ -1,7 +1,7 @@
 <?php
 
 use app\core\form\Form;
-use app\models\request\User;
+use app\models\User;
 
 /**
  * @var User $model

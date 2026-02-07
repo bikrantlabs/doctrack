@@ -6,7 +6,8 @@ use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
 use app\core\Response;
-use app\models\request\User;
+use app\models\request\LoginFormModel;
+use app\models\User;
 
 class AuthController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthController extends Controller
                 $userModel->resetPasswordField();
                 Application::$app->session->setFlash("register_success", "Your account has been created.", "success");
                 $response->redirect("/");
-                return $this->render("register", "", ["model" => $userModel]);
+                return;
             } else {
                 Application::$app->session->setFlash("register_failed", "Failed to register.", "error");
                 return $this->render("register", "", ["model" => $userModel]);
@@ -45,13 +46,44 @@ class AuthController extends Controller
     public function loginUser(Request $req, Response $response)
     {
 
-        $userModel = new User();
+        $loginForm = new LoginFormModel();
         if ($req->isGet()) {
-            return $this->render("login", "", ["model" => $userModel]); // viewname + layoutname
+            return $this->render("login", "", ["model" => $loginForm]); // viewname + layoutname
+        }
+        if ($req->isPost()) {
+            $body = $req->getBody();
+            $loginForm->loadData($body);
+
+            if ($loginForm->validate() && $loginForm->login()) {
+                $response->redirect("/");
+                return;
+            }
+            Application::$app->session->setFlash("login_failed", "Failed to login.", "error");
+            return $this->render("login", "", ["model" => $loginForm]);
+
         }
 
 
         $response->setStatusCode(405);
         return "Method Not Allowed";
+    }
+
+    public function logout(Request $req, Response $response)
+    {
+        if ($req->isGet()) {
+//            Redirect to home page
+            $response->redirect("/");
+            return;
+        }
+        if ($req->isPost()) {
+
+            Application::$app->logout();
+            $response->redirect("/");
+            return;
+        }
+
+        $response->setStatusCode(405);
+        return "Method Not Alloweds";
+
     }
 }

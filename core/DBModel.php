@@ -5,14 +5,16 @@ namespace app\core;
 abstract class DBModel extends Model
 {
 
-    abstract protected function tableName(): string;
+    abstract public function tableName(): string;
+
+    abstract public function primaryKey(): string;
 
     /**
      * The list of attributes(columns) which are required to create
      * new row in database. `attributes` are used by `save()` method.
      * @return array
      */
-    abstract protected function attributes(): array;
+    abstract public function attributes(): array;
 
     protected function save(array $uniqueAttributes): bool
     {
@@ -65,6 +67,32 @@ abstract class DBModel extends Model
             }
         }
         return $errorsField;
+    }
+
+    /**
+     * @param $conditions > the associative array containing keys/value to find unique data.
+     * e.g. [email=> example@gmail.com, groupId=>1]
+     * @return ?static dfs
+     * SELECT * FROM $tableName WHERE email = example@gmail.com AND groupId = 1 AND ...
+     */
+    public function findUnique($conditions): ?static
+    {
+        $tableName = static::tableName(); // users, documents
+
+        $attributes = array_keys($conditions); // ["email", "groupId"]
+        $mapped = array_map(fn($attr) => "$attr = :$attr", $attributes); // [email => :email, groupId => :groupId]
+        $sql = implode("AND ", $mapped);// email => :email AND groupId => :groupId;
+
+        $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
+
+        foreach ($conditions as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+
+        $statement->execute();
+
+        return $statement->fetchObject(static::class) ?: null;
+
     }
 
     protected static function prepare($sql)

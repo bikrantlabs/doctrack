@@ -9,16 +9,19 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use app\controllers\AuthController;
 use app\controllers\SiteController;
 use app\core\Application;
+use app\models\User;
 use Dotenv\Dotenv;
 
 // It's like importing the package
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
+define('APP_ROOT', dirname(__DIR__));
 
 $ROOT_DIR = dirname(__DIR__);
 
 $CONFIG = [
+    "userClass" => User::class,
     "db" => [
         "DB_DSN" => $_ENV['DB_DSN'], // dsn
         "DB_USER" => $_ENV['DB_USER'], //user
@@ -34,5 +37,7 @@ $app->router->get("/register", [AuthController::class, 'registerUser']);
 $app->router->post("/register", [AuthController::class, 'registerUser']); // registerUser method of AuthController
 
 $app->router->get("/login", [AuthController::class, 'loginUser']); // registerUser method of AuthController
+$app->router->post("/login", [AuthController::class, 'loginUser']); // registerUser method of AuthController
 
+$app->router->post("/logout", [AuthController::class, 'logout']); // registerUser method of AuthController
 $app->run();

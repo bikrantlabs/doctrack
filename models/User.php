@@ -1,12 +1,14 @@
 <?php
 
-namespace app\models\request;
+namespace app\models;
 
 use app\core\Application;
-use app\core\DBModel;
+use app\core\UserModel;
 
-class User extends DBModel
+class User extends UserModel
 {
+    public string $id;
+    public string $created_at;
     public string $fullname = '';
     public string $email = '';
     public string $password = '';
@@ -56,5 +58,15 @@ class User extends DBModel
             "password" => "Password",
             "confirmPassword" => "Confirm Password",
         ];
+    }
+
+    public function primaryKey(): string
+    {
+        return "id";
+    }
+
+    public function getName(): string
+    {
+        return $this->fullname;
     }
 }
