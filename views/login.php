@@ -1,8 +1,13 @@
 <?php
 
 use app\core\form\Form;
+use app\core\View;
 use app\models\request\LoginFormModel;
 
+/**
+ * @var $this View
+ */
+$this->title = "Login"
 /**
  * @var LoginFormModel $model
  */

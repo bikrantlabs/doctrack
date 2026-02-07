@@ -1,5 +1,10 @@
 <?php
 
+use app\core\View;
+
+/**
+ * @var $this View
+ */
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
           content="DocTrack - Enterprise document approval and review platform. Streamline your document workflows with secure digital signatures and approvals.">
-    <title>DocTrack - Document Approval & Review Platform</title>
+    <title> <?php
+        if ($this->title != "") {
+            echo $this->title . " | DocTrack";
+        } else {
+            echo "DocTrack - Document Approval & Review Platform";
+        }
+        ?> </title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

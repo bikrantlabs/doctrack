@@ -1,3 +1,14 @@
+<?php
+
+use app\core\View;
+
+/**
+ * @var $this View
+ */
+
+
+$this->title = "Not Found"
+?>
 <!-- 404 Not Found Template - Include theme.css, common.css, and not-found.css -->
 <main class="not-found">
     <div class="not-found-container">

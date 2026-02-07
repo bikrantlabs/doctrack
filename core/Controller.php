@@ -7,8 +7,8 @@ class Controller
     public function render($view, $layout = "", $params = [])
     {
         if (empty($layout)) {
-            return Application::$app->router->renderView($view, $params);
+            $layout = "rootLayout";
         }
-        return Application::$app->router->renderViewWithLayout($view, $layout, $params);
+        return Application::$app->view->renderViewWithLayout($view, $layout, $params);
     }
 }

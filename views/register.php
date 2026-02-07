@@ -1,11 +1,15 @@
 <?php
 
 use app\core\form\Form;
+use app\core\View;
 use app\models\User;
 
 /**
+ * @var $this View
  * @var User $model
  */
+
+$this->title = "Register"
 ?>
 
 <div class="auth-layout-register">
