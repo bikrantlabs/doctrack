@@ -12,4 +12,9 @@ class SiteController extends Controller
     {
         return $this->render("home");
     }
+
+    public function app()
+    {
+        return $this->render("app/app");
+    }
 }

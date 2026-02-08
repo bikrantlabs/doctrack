@@ -33,6 +33,7 @@ $app = new Application($ROOT_DIR, $CONFIG);
 
 
 $app->router->get("/", [SiteController::class, "home"]);
+$app->router->get("/app", [SiteController::class, "app", [new AuthMiddleware()]]);
 
 // Authentication
 $app->router->get("/register", [AuthController::class, 'registerUser']);

@@ -28,7 +28,7 @@ class Application
     public function __construct($rootPath, array $config)
 
     {
-        $this->userClass = $config['userClass'] ?? null;
+        $this->userClass = $config['userClass'] ?? "";
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
         $this->request = new Request();
@@ -77,6 +77,7 @@ class Application
 
         $identifier = $user->{$primaryKey};
 
+        session_regenerate_id(true);
         $this->session->set("user_id", $identifier);
         return true;
     }

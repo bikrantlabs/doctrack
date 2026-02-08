@@ -9,7 +9,7 @@ class CLASSNAME
 
        try {
        $db = Application::$app->db;
-       $SQL = "SQL_CONTENT";
+       $SQL = 'SQL_CONTENT';
        $db->pdo->exec($SQL);
 
         } catch (Exception $e) {

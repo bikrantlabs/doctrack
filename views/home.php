@@ -1,5 +1,9 @@
 <?php include_once(\app\core\Application::$ROOT_DIR . "/views/partials/navbar.php") ?>
+<?php
 
+use app\core\Application;
+
+?>
 
 <!-- Hero Section -->
 <section class="hero">
@@ -25,14 +29,27 @@
             </p>
 
             <div class="hero-actions">
-                <a href="/register" class="btn btn-primary btn-lg">
-                    Start Free Trial
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                              stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <a href="#workflow" class="btn btn-secondary btn-lg">See How It Works</a>
+                <?php if (!Application::isLoggedIn()): ?>
+
+                    <a href="/register" class="btn btn-primary btn-lg">
+                        Start Free Trial
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="#workflow" class="btn btn-secondary btn-lg">See How It Works</a>
+                <?php else: ?>
+                    <a href="/app" class="btn btn-primary btn-lg">
+                        Dashboard
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
 
